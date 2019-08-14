@@ -22,6 +22,9 @@ type messageHandler interface {
 
 func NewRabbitMQConnection() *RabbitConnection {
 	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%s/", config.Rabbit.User, config.Rabbit.Password, config.Rabbit.Host, config.Rabbit.Port))
+
+	fmt.Println(fmt.Sprintf("amqp://%s:%s@%s:%s/", config.Rabbit.User, config.Rabbit.Password, config.Rabbit.Host, config.Rabbit.Port))
+
 	if err != nil {
 		log.Fatal(err)
 	}

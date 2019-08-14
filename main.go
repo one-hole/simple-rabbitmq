@@ -1,25 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"github/one-hole/simple-rabbitmq/brokers"
-	"log"
+	"github/one-hole/simple-rabbitmq/rabbitmq"
 )
 
 var (
-	//forever <-chan bool
+	forever <-chan bool
 )
 
-type myHandler struct {
-
-}
-
-// 这里个函数做你想做的任何事情
-func (mh *myHandler) Handle(body []byte) error {
-	log.Printf("Received a message: %s", body)
-	return nil
-}
-
 func main() {
-	client := brokers.NewRabbitMQConnection()
-	client.DirectSubscribe("YourName", &myHandler{})
+
+	broker, err := rabbitmq.Dial("amqp://guest:guest@127.0.0.1:5672/")
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer broker.Close()
+
+	err = broker.Subscribe("default", "hello", func(message *brokers.ReceivedMessage) error {
+		fmt.Sprintln(string(message.Body))
+		return nil
+	})
+
+	<-forever
 }
