@@ -10,7 +10,6 @@ type rabbitBroker struct {
 	conn                *amqp.Connection
 	channelManager      *channelManager      // 信道管理器
 	subscriptionManager *subscriptionManager // 订阅管理器
-	//subscriber          *subscriber          // 这里先放一个订阅
 }
 
 func Dial(url string) (brokers.Broker, error) {
@@ -41,5 +40,14 @@ func (b *rabbitBroker) Subscribe(exchange, routingKey string, handler brokers.Me
 		return b.subscriptionManager.newSubscription(routingKey, handler)
 	}
 
-	return b.subscriptionManager.newFanOutSubscription(exchange, handler)
+	if "" == routingKey {
+		return b.subscriptionManager.newFanOutSubscription(exchange, handler)
+	}
+
+	return nil
+}
+
+// 这个地方用了面向接口的 Golang 风格编程 &
+func (b *rabbitBroker) DirectSubscribe(handle *brokers.MessageHandleStruct) error {
+	return nil
 }
