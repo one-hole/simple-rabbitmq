@@ -1,7 +1,6 @@
 package brokers
 
-
 type Broker interface {
 	Close()
-	Subscribe(topic, identity string, handler MessageHandler) error
+	Subscribe(exchange, identity string, handler MessageHandler) error
 }

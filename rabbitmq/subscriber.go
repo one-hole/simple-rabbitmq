@@ -1,7 +1,6 @@
 package rabbitmq
 
 import (
-	"fmt"
 	"github/one-hole/simple-rabbitmq/brokers"
 	"sync"
 
@@ -28,13 +27,7 @@ func newSubscriber(channel *amqp.Channel, handler brokers.MessageHandler) *subsc
 
 func (sub *subscriber) run(wg *sync.WaitGroup, queue string) error {
 
-	q, err := sub.channel.QueueDeclare(queue, false, false, false, false, nil)
-
-	if err != nil {
-		panic(err)
-	}
-
-	messages, err := sub.channel.Consume(q.Name, "", false, false, false, false, nil)
+	messages, err := sub.channel.Consume(queue, "", false, false, false, false, nil)
 
 	if err != nil {
 		panic(err)
@@ -44,7 +37,12 @@ func (sub *subscriber) run(wg *sync.WaitGroup, queue string) error {
 		for {
 			select {
 			case msg := <-messages:
-				fmt.Println(string(msg.Body))
+				sub.handler(&brokers.ReceivedMessage{
+					ContentType: msg.ContentType,
+					Body:        msg.Body,
+					MessageID:   msg.MessageId,
+					Timestamp:   msg.Timestamp,
+				})
 				msg.Ack(false)
 			}
 		}

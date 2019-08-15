@@ -1,7 +1,6 @@
 package rabbitmq
 
 import (
-	"errors"
 	"github/one-hole/simple-rabbitmq/brokers"
 
 	"github.com/streadway/amqp"
@@ -11,7 +10,7 @@ type rabbitBroker struct {
 	conn                *amqp.Connection
 	channelManager      *channelManager      // 信道管理器
 	subscriptionManager *subscriptionManager // 订阅管理器
-	subscriber          *subscriber          // 这里先放一个订阅
+	//subscriber          *subscriber          // 这里先放一个订阅
 }
 
 func Dial(url string) (brokers.Broker, error) {
@@ -35,19 +34,12 @@ func (b *rabbitBroker) Close() {
 	_ = b.conn.Close()
 }
 
+// 这里需要区分不同的订阅类型（也就是 ExchangeType）
 func (b *rabbitBroker) Subscribe(exchange, routingKey string, handler brokers.MessageHandler) error {
 
 	if "" == exchange {
-		return errors.New("no exchange error")
+		return b.subscriptionManager.newSubscription(routingKey, handler)
 	}
 
-	channel, err := b.channelManager.acquireChannel()
-
-	if err != nil {
-		panic(err)
-	}
-
-	b.subscriber = newSubscriber(channel, handler)
-
-	return b.subscriber.run(nil, routingKey)
+	return b.subscriptionManager.newFanOutSubscription(exchange, handler)
 }
