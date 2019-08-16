@@ -1,4 +1,4 @@
-RabbitMQ 相关的概念
+### RabbitMQ 相关的概念
 
 1. Broker
 
@@ -11,10 +11,26 @@ RabbitMQ 相关的概念
     3. Queue
 
 2. Message
-    
+
     1. Producer
     2. Consumer
-    
+
 3. Connection
 
 4. Channel
+
+### RabbitMQ 的工作模式
+
+![RabbitMQWorkFlow](http://ww2.sinaimg.cn/large/006tNc79gy1g619oqhlc5j30vx0hemz8.jpg)
+
+1. Work Queues
+    * 对应着上图中的 【3】- 只需要 Q 的名字即可实现
+
+2. Publish / Subscribe （Fanout） - BroadCast
+    * 对应这上图中的 【2】- 并且 binding 失效 必须有 X 的名字
+
+3. Routing
+
+    *
+4. Topic
+5. RPC

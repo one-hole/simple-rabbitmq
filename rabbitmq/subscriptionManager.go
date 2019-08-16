@@ -16,6 +16,12 @@ func (sm *subscriptionManager) newTopicSubscription(exchange string, routingKey 
 	return nil
 }
 
+func (sm *subscriptionManager) newDirectSubscription(exchangeName string, handle *brokers.MessageHandleStruct) error {
+	channel, _ := sm.channelManager.acquireChannel()
+	_ = channel.ExchangeDeclare(exchangeName, amqp.ExchangeDirect, false, false, false, false, nil)
+	return nil
+}
+
 func (sm *subscriptionManager) newFanOutSubscription(exchangeName string, handler brokers.MessageHandler) error {
 	channel, err := sm.channelManager.acquireChannel()
 
@@ -45,7 +51,7 @@ func (sm *subscriptionManager) newFanOutSubscription(exchangeName string, handle
 	subscriber.run(nil, q.Name)
 	sm.subscribers = append(sm.subscribers, subscriber)
 
-	return err
+	return nil
 }
 
 func (sm *subscriptionManager) newSubscription(queue string, handler brokers.MessageHandler) error {

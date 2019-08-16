@@ -21,8 +21,7 @@ func main() {
 	defer broker.Close()
 
 	err = broker.Subscribe("", "hello", func(message *brokers.ReceivedMessage) error {
-		fmt.Printf("queue: hello, %s", string(message.Body))
-		fmt.Println("-------------------")
+		fmt.Printf("queue: hello, %s\n", string(message.Body))
 		return nil
 	})
 
@@ -32,7 +31,7 @@ func main() {
 	}
 
 	err = broker.Subscribe("logs", "", func(message *brokers.ReceivedMessage) error {
-		fmt.Printf("queue: hello, %s", string(message.Body))
+		fmt.Printf("exchange: logs, %s\n", string(message.Body))
 		return nil
 	})
 

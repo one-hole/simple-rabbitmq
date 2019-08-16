@@ -47,7 +47,8 @@ func (b *rabbitBroker) Subscribe(exchange, routingKey string, handler brokers.Me
 	return nil
 }
 
-// 这个地方用了面向接口的 Golang 风格编程 &
+// 这个地方用了面向接口的 Golang 风格编程
 func (b *rabbitBroker) DirectSubscribe(handle *brokers.MessageHandleStruct) error {
+
 	return nil
 }
