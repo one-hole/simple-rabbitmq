@@ -7,12 +7,14 @@
         2. topic
         3. fanout
         4. headers
+
     2. Bindings
     3. Queue
 
 2. Message
-
     1. Producer
+      1. Delivery
+
     2. Consumer
 
 3. Connection
@@ -30,7 +32,8 @@
     * 对应这上图中的 【2】- 并且 binding 失效 必须有 X 的名字
 
 3. Routing
+    * 【1】需要有 RoutingKey 【2】需要有 BindingKey
 
-    *
 4. Topic
+
 5. RPC
