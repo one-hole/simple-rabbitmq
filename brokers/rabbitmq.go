@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github/one-hole/simple-rabbitmq/config"
+	"github.com/one-hole/simple-rabbitmq/config"
 
 	"github.com/streadway/amqp"
 )

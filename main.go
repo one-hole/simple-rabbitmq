@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github/one-hole/simple-rabbitmq/brokers"
-	"github/one-hole/simple-rabbitmq/rabbitmq"
+
+	"github.com/one-hole/simple-rabbitmq/brokers"
+	"github.com/one-hole/simple-rabbitmq/rabbitmq"
 )
 
 var (
@@ -37,3 +38,7 @@ func main() {
 
 	<-forever
 }
+
+//type MessageHandleStruct interface {
+//	Handler(message *ReceivedMessage) error
+//}

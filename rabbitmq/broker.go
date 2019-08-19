@@ -1,7 +1,7 @@
 package rabbitmq
 
 import (
-	"github/one-hole/simple-rabbitmq/brokers"
+	"github.com/one-hole/simple-rabbitmq/brokers"
 
 	"github.com/streadway/amqp"
 )

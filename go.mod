@@ -1,4 +1,4 @@
-module github/one-hole/simple-rabbitmq
+module github.com/one-hole/simple-rabbitmq
 
 go 1.12
 
