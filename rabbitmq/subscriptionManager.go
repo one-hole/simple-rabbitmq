@@ -29,7 +29,7 @@ func (sm *subscriptionManager) newFanOutSubscription(exchangeName string, handle
 		return err
 	}
 
-	err = channel.ExchangeDeclare(exchangeName, amqp.ExchangeFanout, true, false, false, false, nil)
+	err = channel.ExchangeDeclare(exchangeName, amqp.ExchangeFanout, false, false, false, false, nil)
 
 	if err != nil {
 		return err
