@@ -45,7 +45,7 @@ func (client *RabbitConnection) DirectSubscribe(queueName string, handler messag
 	for d := range msg {
 		err := handler.Handle(d.Body)
 		if err != nil {
-			d.Ack(false) // 这里最好是手动 Ack
+			_ = d.Ack(false) // 这里最好是手动 Ack
 		}
 	}
 

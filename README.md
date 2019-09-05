@@ -47,3 +47,7 @@ type MessageHandleStruct interface {
 
 
 ```
+
+### TODO
+
+这边需要处理的是「补偿机制」
