@@ -38,7 +38,7 @@ func (sub *subscriber) run(wg *sync.WaitGroup, queue string) error {
 		for {
 			select {
 			case msg := <-messages:
-				sub.handler(&brokers.ReceivedMessage{
+				go sub.handler(&brokers.ReceivedMessage{
 					ContentType: msg.ContentType,
 					Body:        msg.Body,
 					MessageID:   msg.MessageId,
